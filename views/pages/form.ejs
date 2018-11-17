@@ -1,0 +1,40 @@
+<!Doctype HTML>
+<html>
+<head>
+<title>Postal Rate</title>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script>
+$(document).ready(function() {
+	$("#calculate").click(function() {
+		var values = $("form").serialize();
+		$.getJSON("/result_service", values)
+		.done(function(data) {
+		var result = document.getElementById('result');
+			result.innerHTML = '$' + data.result;
+		});
+	});
+});
+</script>
+</head>
+<body>
+<h1>Postal Rate Calculator</h1>
+<form action="/result" method="">
+<input type="text" name="weight">
+<select name="mail_type">
+<option name="letterS">Letters (Stamped)</option>
+<option name="letterM">Letters (Metered)</option>
+<option name="envelope">Large Envelopes (Flats)</option>
+<option name="firstclass">First-Class Package Service - Retail</option>
+</select>
+<input type="button" id="calculate" value="Ajax Calculate" />
+
+<input type="submit" value="calculate">
+
+</form>
+<p>
+Ajax Result is: <span id="result"></span>
+</p>
+
+</body>
+</html>
