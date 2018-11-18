@@ -119,4 +119,5 @@ express()
   .get('/result', function(req, res){
   	calculateRate(req, res)
   })
+  .get('/rates', (req, res) => res.render('pages/rates'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))

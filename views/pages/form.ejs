@@ -1,40 +1,49 @@
 <!Doctype HTML>
 <html>
-<head>
-<title>Postal Rate</title>
 
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script>
-$(document).ready(function() {
-	$("#calculate").click(function() {
-		var values = $("form").serialize();
-		$.getJSON("/result_service", values)
-		.done(function(data) {
-		var result = document.getElementById('result');
-			result.innerHTML = '$' + data.result;
+<head>
+	<title>Postal Rate</title>
+	<%include ../partials/head %>
+
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$("#calculate").click(function() {
+			var values = $("form").serialize();
+			$.getJSON("/result_service", values)
+			.done(function(data) {
+			var result = document.getElementById('result');
+				result.innerHTML = '$' + data.result;
+			});
 		});
 	});
-});
-</script>
+	</script>
 </head>
-<body>
-<h1>Postal Rate Calculator</h1>
-<form action="/result" method="">
-<input type="text" name="weight">
-<select name="mail_type">
-<option name="letterS">Letters (Stamped)</option>
-<option name="letterM">Letters (Metered)</option>
-<option name="envelope">Large Envelopes (Flats)</option>
-<option name="firstclass">First-Class Package Service - Retail</option>
-</select>
-<input type="button" id="calculate" value="Ajax Calculate" />
+<body class="container">
 
-<input type="submit" value="calculate">
+<header>
+    <% include ../partials/header %>
+</header>
 
-</form>
-<p>
-Ajax Result is: <span id="result"></span>
-</p>
+<main>
+	<h1>Postal Rate Calculator</h1>
+	<form action="/result" method="">
+	<input type="text" name="weight" placeholder=" oz">
+	<select name="mail_type">
+	<option>Letters (Stamped)</option>
+	<option>Letters (Metered)</option>
+	<option>Large Envelopes (Flats)</option>
+	<option>First-Class Package Service - Retail</option>
+	</select>
+	<input type="button" id="calculate" value="Ajax Calculate" />
+
+	<input type="submit" value="Calculate">
+
+	</form><br>
+	<h4>
+	Ajax Result is: <span id="result"></span>
+	</h4>
+</main>
 
 </body>
 </html>
