@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
 
-function calculate(req, res) {
+function calculate(req) {
 	var weight = +(req.query.weight);
 	var result;
 	switch(req.query.mail_type) {
@@ -102,7 +102,7 @@ function calculate(req, res) {
 function calculateRate(req, res) {
 	var weight = req.query.weight
 	var type = req.query.mail_type
-	var result = calculate(req, res)
+	var result = calculate(req)
 	res.render('pages/result', {weight:weight, type:type, result:result})
 }
 
@@ -113,7 +113,7 @@ express()
   .get('/', (req, res) => res.render('pages/index'))
   .get('/form', (req, res) => res.render('pages/form'))
   .get('/result_service', (req, res) => {
-	var result = calculate(req, res)
+	var result = calculate(req)
   	res.json({result:result})	
   })
   .get('/result', function(req, res){
